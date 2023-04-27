@@ -15,14 +15,10 @@ body { padding: 0; margin: 0 }
 #unity-fullscreen-button { float: right; width: 38px; height: 38px; background: url('fullscreen-button.png') no-repeat center }
 #unity-warning { position: absolute; left: 50%; top: 5%; transform: translate(-50%); background: white; padding: 10px; display: none }
 
-@media screen and (max-width: 767px) {
-    #unity-container, #unity-canvas {
-      width: 100% !important;
-      height: 100% !important;
-      max-width: none !important;
-      max-height: none !important;
-      margin: 0 auto;
+/* hacer la pantalla la mitad de pequeña*/
+@media (max-width: 800px) {
+    .unity-desktop{
+        height: 90vh;
+        width: 90vw;
     }
-  }
-  
-
+}
