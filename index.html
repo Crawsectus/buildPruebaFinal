@@ -8,6 +8,8 @@
   <title>Unity WebGL Player | Mision Bomba</title>
   <link rel="shortcut icon" href="TemplateData/favicon.ico">
   <link rel="stylesheet" href="TemplateData/style.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Oswald:700&display=swap">
+
 </head>
 
 <body>
@@ -26,6 +28,12 @@
       <div id="unity-build-title">Mision Bomba</div>
     </div>
   </div>
+  <div class="GiroCelular">
+    <p>Gira tu celular para poder jugar</p>
+    <p>Asegurate de activar la rotación automática en tu dispositivo!</p>
+    <img src="https://www.greenluxepapers.com/img/giphy_devide_left.gif" alt="Gira tu celular">
+  </div>
+  <div id="bloqueo"></div>
   
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
@@ -86,10 +94,6 @@
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
       // Mobile device style: fill the whole browser client area with the game canvas:
 
-      var meta = document.createElement('meta');
-      meta.name = 'viewport';
-      meta.content = 'width=device-width, initial-scale=1.0, user-scalable=no, shrink-to-fit=no';
-      document.getElementsByTagName('head')[0].appendChild(meta);
       container.className = "unity-mobile";
       canvas.className = "unity-mobile";
 
@@ -97,7 +101,6 @@
       // performance, uncomment the following line:
       // config.devicePixelRatio = 1;
 
-      unityShowBanner('Pon tu celular en horizontal para una mejor experiencia.');
     } else {
       // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
       var ancho_pantalla = screen.width;
