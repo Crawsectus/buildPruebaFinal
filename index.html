@@ -28,13 +28,21 @@
       <div id="unity-build-title">Mision Bomba</div>
     </div>
   </div>
+  <div class="activaCompleta" id="activaCompleta">
+    <p>Activa la pantalla completa</p>
+  </div>
+  <div class="celPantallaCompleta" id="fullscreen"></div>
+
   <div class="GiroCelular">
     <p>Gira tu celular para poder jugar</p>
     <p>Asegurate de activar la rotación automática en tu dispositivo!</p>
     <img src="https://www.greenluxepapers.com/img/giphy_devide_left.gif" alt="Gira tu celular">
+
   </div>
+  <div class="resolucion" id="resolucion" style="position: absolute;"></div>
   <div id="bloqueo"></div>
-  
+
+
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-database-compat.js"></script>
@@ -97,11 +105,103 @@
       container.className = "unity-mobile";
       canvas.className = "unity-mobile";
 
+      var fullscreen = document.getElementById("fullscreen");
+      var botonPantallaCompleta = document.querySelector(".celPantallaCompleta");
+      var GiroCelular = document.querySelector(".GiroCelular");
+      var activaCompleta = document.querySelector(".activaCompleta");
+
+      if (!document.fullscreenElement) {
+        GiroCelular.style.display = "none";
+      }
+
+      function cambioTexto() {
+        // si la pantalla no está en modo pantalla completa:
+        if (!document.fullscreenElement) {
+          activaCompleta.style.display = "flex";
+          GiroCelular.style.display = "none";
+        } else {
+          GiroCelular.style.display = "flex";
+          activaCompleta.style.display = "none";
+        }
+      }
+
+      function desaparecerTexto() {
+        activaCompleta.style.display = "none";
+        GiroCelular.style.display = "none";
+      }
+
+      function calcularPantalla() {
+        if (window.orientation === 90 || window.orientation === -90) {
+          var ancho = screen.height * 1080 / 720;
+          ancho = parseInt(ancho);
+          var elementos = document.querySelector("#unity-container.unity-mobile");
+          if (elementos !== null) {
+            elementos.style.width = ancho + "px";
+            elementos.style.height = 100 + "%";
+            elementos.style.top = 0;
+          }
+        } else {
+          var elementos = document.querySelector("#unity-container.unity-mobile");
+          if (elementos !== null) {
+            elementos.style.width = 100 + "%";
+            elementos.style.height = 30 + "%";
+            elementos.style.top = 30 + "%";
+          }
+        }
+      }
+
+      function actualizarPantalla() {
+        // Llamar a la función calcularPantalla y actualizar el tamaño del contenedor:
+        calcularPantalla();
+
+      }
+
+      // Llamar a la función una vez cuando se carga la página:
+      actualizarPantalla();
+
+      // Agregar un event listener que se active cada vez que se gira la pantalla:
+      window.addEventListener("orientationchange", function () {
+        actualizarPantalla();
+        if (document.fullscreenElement && (window.orientation === 90 || window.orientation === -90)) {
+          fullscreen.style.position = "absolute";
+          fullscreen.style.right = 10 + "px";
+          fullscreen.style.top = 10 + "px";
+          desaparecerTexto()
+        }
+
+      });
+
+
+      // Agregar un event listener para el evento fullscreenchange:
+      document.addEventListener("fullscreenchange", function () {
+        cambioTexto();
+        if (document.fullscreenElement && (window.orientation === 90 || window.orientation === -90)) {
+          fullscreen.style.position = "absolute";
+          fullscreen.style.right = 10 + "px";
+          fullscreen.style.top = 10 + "px";
+          desaparecerTexto()
+        }
+      });
+
+      fullscreen.onclick = () => {
+        actualizarPantalla();
+        // poner la pantalla completa
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else {
+          document.documentElement.requestFullscreen();
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+      };
+
       // To lower canvas resolution on mobile devices to gain some
       // performance, uncomment the following line:
       // config.devicePixelRatio = 1;
 
     } else {
+      var fullscreen = document.getElementById("fullscreen");
+      fullscreen.style.display = "none";
       // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
       var ancho_pantalla = screen.width;
       var alto_pantalla = screen.height;
