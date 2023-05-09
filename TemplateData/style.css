@@ -5,6 +5,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #231F20;
 }
 
 #unity-container {
