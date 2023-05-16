@@ -28,9 +28,6 @@
       <div id="unity-build-title">Mision Bomba</div>
     </div>
   </div>
-  <div class="activaCompleta" id="activaCompleta">
-    <p>Activa la pantalla completa</p>
-  </div>
   <div class="celPantallaCompleta" id="fullscreen"></div>
 
   <div class="GiroCelular">
@@ -100,7 +97,8 @@
     // config.matchWebGLToCanvasSize = false;
 
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-      // Mobile device style: fill the whole browser client area with the game canvas:
+
+      // codigo para mantener la pantalla siempre encendida:
 
       container.className = "unity-mobile";
       canvas.className = "unity-mobile";
@@ -108,25 +106,19 @@
       var fullscreen = document.getElementById("fullscreen");
       var botonPantallaCompleta = document.querySelector(".celPantallaCompleta");
       var GiroCelular = document.querySelector(".GiroCelular");
-      var activaCompleta = document.querySelector(".activaCompleta");
 
-      if (!document.fullscreenElement) {
-        GiroCelular.style.display = "none";
-      }
+
 
       function cambioTexto() {
         // si la pantalla no está en modo pantalla completa:
         if (!document.fullscreenElement) {
-          activaCompleta.style.display = "flex";
           GiroCelular.style.display = "none";
         } else {
           GiroCelular.style.display = "flex";
-          activaCompleta.style.display = "none";
         }
       }
 
       function desaparecerTexto() {
-        activaCompleta.style.display = "none";
         GiroCelular.style.display = "none";
       }
 

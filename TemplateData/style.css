@@ -105,7 +105,8 @@ body {
 }
 
 .GiroCelular {
-    display: none
+    display: none;
+    color: white;
 }
 
 .GiroCelular2 {
@@ -167,5 +168,13 @@ body {
         height: 30%;
         top: 30%;
         
+    }
+}
+
+@media screen and (orientation: landscape) {
+    #fullscreen {
+        position: absolute;
+        top: 0;
+        right: 0;
     }
 }
