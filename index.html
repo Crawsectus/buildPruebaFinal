@@ -22,11 +22,6 @@
       </div>
     </div>
     <div id="unity-warning"> </div>
-    <div id="unity-footer">
-      <div id="unity-webgl-logo"></div>
-      <div id="unity-fullscreen-button"></div>
-      <div id="unity-build-title">Mision Bomba</div>
-    </div>
   </div>
   <div class="celPantallaCompleta" id="fullscreen"></div>
 
@@ -37,7 +32,6 @@
 
   </div>
   <div class="resolucion" id="resolucion" style="position: absolute;"></div>
-  <div id="bloqueo"></div>
 
 
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
@@ -49,7 +43,6 @@
     var canvas = document.querySelector("#unity-canvas");
     var loadingBar = document.querySelector("#unity-loading-bar");
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
-    var fullscreenButton = document.querySelector("#unity-fullscreen-button");
     var warningBanner = document.querySelector("#unity-warning");
 
     // Shows a temporary message banner/ribbon for a few seconds, or
@@ -150,7 +143,6 @@
 
       // Llamar a la función una vez cuando se carga la página:
       actualizarPantalla();
-
       // Agregar un event listener que se active cada vez que se gira la pantalla:
       window.addEventListener("orientationchange", function () {
         actualizarPantalla();
@@ -175,17 +167,6 @@
         }
       });
 
-      fullscreen.onclick = () => {
-        actualizarPantalla();
-        // poner la pantalla completa
-        if (document.fullscreenElement) {
-          document.exitFullscreen();
-        } else {
-          document.documentElement.requestFullscreen();
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-        }
-      };
 
       // To lower canvas resolution on mobile devices to gain some
       // performance, uncomment the following line:
@@ -202,10 +183,10 @@
       console.log("Alto de la pantalla: " + alto_pantalla);
 
       if (ancho_pantalla <= 1920) {
-        ancho_pantalla *= 0.8;
+        ancho_pantalla *= 0.7;
       }
       if (alto_pantalla <= 1080) {
-        alto_pantalla *= 0.8;
+        alto_pantalla *= 0.7;
       }
 
       var ancho_pantalla_str = ancho_pantalla.toString();
@@ -228,9 +209,6 @@
       }).then((unityInstance) => {
         window.unityInstance = unityInstance;
         loadingBar.style.display = "none";
-        fullscreenButton.onclick = () => {
-          unityInstance.SetFullscreen(1);
-        };
       }).catch((message) => {
         alert(message);
       });
