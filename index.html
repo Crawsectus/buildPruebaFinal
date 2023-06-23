@@ -13,6 +13,7 @@
 </head>
 
 <body>
+  <h1 style="text-align: center; font-family: 'DM-sans',sans-serif;">Misión Bomba</h1>
   <div id="unity-container" class="unity-desktop">
     <canvas id="unity-canvas"></canvas>
     <div id="unity-loading-bar">
@@ -39,6 +40,11 @@
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-auth-compat.js"></script>
   <script>
+    window.addEventListener("beforeunload", function (event) {
+      event.preventDefault();
+      event.returnValue = "¿Estás seguro de que quieres cerrar esta página?";
+    });
+
     var container = document.querySelector("#unity-container");
     var canvas = document.querySelector("#unity-canvas");
     var loadingBar = document.querySelector("#unity-loading-bar");
