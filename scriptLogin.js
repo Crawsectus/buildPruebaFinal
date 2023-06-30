@@ -41,12 +41,20 @@ document.getElementById("loginButton").addEventListener("click", function () {
 // Obtener referencias a los campos de entrada
 const emailFieldSignUp = document.getElementById("emailSignUp");
 const passwordFieldSignUp = document.getElementById("passwordSignUp");
+const passwordConfirmFieldSignUp = document.getElementById("passwordConfirmSignUp");
 const displayNameFieldSignUp = document.getElementById("displayNameSignUp");
 const registerButton = document.getElementById("registerButton");
 registerButton.addEventListener("click", function () {
     const email = emailFieldSignUp.value;
     const password = passwordFieldSignUp.value;
+    const passwordConfirm = passwordConfirmFieldSignUp.value;
     const displayName = displayNameFieldSignUp.value;
+    
+
+    if(password !== passwordConfirm){
+        alert("Las contraseñas no coinciden");
+        return;
+    }
 
     // Crear un usuario con correo electrónico y contraseña
     firebase.auth().createUserWithEmailAndPassword(email, password)
