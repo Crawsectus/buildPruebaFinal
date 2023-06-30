@@ -14,6 +14,7 @@
 
 <body>
   <h1 style="text-align: center; font-family: 'DM-sans',sans-serif;">Misión Bomba</h1>
+  <div id="welcome"></div>
   <div id="unity-container" class="unity-desktop">
     <canvas id="unity-canvas"></canvas>
     <div id="unity-loading-bar">
@@ -232,8 +233,23 @@
       appId: "1:850388292562:web:88aaa44c4571f5cf05ee0b",
       measurementId: "XXXXXXXXXXXXX"
     });
+    let globalUserName = "";
     const db = firebaseApp.database();
     const auth = firebaseApp.auth();
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        // Usuario autenticado, mostrar mensaje de bienvenida
+        globalUserName=user.displayName;
+        var welcomeMessage = "¡Bienvenido, " + obtenerNombre() + "!";
+        document.getElementById("welcome").textContent = welcomeMessage;
+      } else {
+        // Usuario no autenticado, redirigir al inicio de sesión
+        window.location.href = "login.html";
+      }
+    });
+    function obtenerNombre(){
+      return globalUserName;
+    }
   </script>
 </body>
 
