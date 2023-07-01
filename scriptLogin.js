@@ -44,14 +44,16 @@ const passwordFieldSignUp = document.getElementById("passwordSignUp");
 const passwordConfirmFieldSignUp = document.getElementById("passwordConfirmSignUp");
 const displayNameFieldSignUp = document.getElementById("displayNameSignUp");
 const registerButton = document.getElementById("registerButton");
+const forgotPasswordBtn = document.getElementById("passwordForgot");
+forgotPasswordBtn.addEventListener("click", function () { forgotPassword(); });
 registerButton.addEventListener("click", function () {
     const email = emailFieldSignUp.value;
     const password = passwordFieldSignUp.value;
     const passwordConfirm = passwordConfirmFieldSignUp.value;
     const displayName = displayNameFieldSignUp.value;
-    
 
-    if(password !== passwordConfirm){
+
+    if (password !== passwordConfirm) {
         alert("Las contraseñas no coinciden");
         return;
     }
@@ -82,12 +84,25 @@ registerButton.addEventListener("click", function () {
 function signInWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider)
-      .then(function(result) {
-        window.location.href = "index.html";
-      })
-      .catch(function(error) {
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error(errorCode, errorMessage);
-      });
-  }
+        .then(function (result) {
+            window.location.href = "index.html";
+        })
+        .catch(function (error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.error(errorCode, errorMessage);
+        });
+}
+//Olvido de contraseña
+function forgotPassword() {
+    var email = prompt("Por favor, ingresa tu correo electrónico para restablecer la contraseña:");
+    if (email) {
+        firebase.auth().sendPasswordResetEmail(email)
+            .then(function () {
+                alert("Se ha enviado un correo electrónico para restablecer la contraseña. Por favor, revisa tu bandeja de entrada.");
+            })
+            .catch(function (error) {
+                alert("Ha ocurrido un error al enviar el correo electrónico: " + error.message);
+            });
+    }
+}
