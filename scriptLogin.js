@@ -78,3 +78,16 @@ registerButton.addEventListener("click", function () {
             console.error(error);
         });
 });
+// Función para el inicio de sesión con Google
+function signInWithGoogle() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then(function(result) {
+        window.location.href = "index.html";
+      })
+      .catch(function(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        console.error(errorCode, errorMessage);
+      });
+  }
