@@ -75,7 +75,7 @@ input {
     width: 70%;
 }
 
-hr{
+hr {
     width: 100%;
 }
 
@@ -100,13 +100,14 @@ button {
     cursor: pointer;
     justify-content: center;
     align-items: center;
-
-    .google-icon {
-        width: 30px;
-        height: 30px;
-        margin-right: 10px;
-    }
 }
+
+.google-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
 
 .google-btn:hover {
     box-shadow: 0 0 10px rgba(0, 0, 0, 1);
