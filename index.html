@@ -241,10 +241,10 @@
     const db = firebaseApp.database();
     const auth = firebaseApp.auth();
     firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
+      if (user && user.emailVerified) {
         // Usuario autenticado, mostrar mensaje de bienvenida
         globalUserName = user.displayName;
-        var welcomeMessage = "Estas jungando como " + obtenerNombre() + "!";
+        var welcomeMessage = "¡Estás jugando como " + obtenerNombre() + "!";
         document.getElementById("welcome").textContent = welcomeMessage;
       } else {
         // Usuario no autenticado, redirigir al inicio de sesión
