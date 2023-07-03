@@ -14,8 +14,6 @@
 
 <body>
   <h1 style="text-align: center; font-family: 'DM-sans',sans-serif;">Misión Bomba</h1>
-  <div id="welcome"></div>
-  <button id="logoutButton">Cerrar Sesión</button>
   <div id="unity-container" class="unity-desktop">
     <canvas id="unity-canvas"></canvas>
     <div id="unity-loading-bar">
@@ -26,6 +24,11 @@
     </div>
     <div id="unity-warning"> </div>
   </div>
+  <div class="user">
+    <div id="welcome"></div>
+    <button id="logoutButton">Cerrar Sesión</button>
+  </div>
+
   <div class="celPantallaCompleta" id="fullscreen"></div>
 
   <div class="GiroCelular">
@@ -240,28 +243,28 @@
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         // Usuario autenticado, mostrar mensaje de bienvenida
-        globalUserName=user.displayName;
-        var welcomeMessage = "¡Bienvenido, " + obtenerNombre() + "!";
+        globalUserName = user.displayName;
+        var welcomeMessage = "Estas jungando como " + obtenerNombre() + "!";
         document.getElementById("welcome").textContent = welcomeMessage;
       } else {
         // Usuario no autenticado, redirigir al inicio de sesión
         window.location.href = "login.html";
       }
     });
-    function obtenerNombre(){
+    function obtenerNombre() {
       return globalUserName;
     }
     //Función para cerrar sesión
-    document.getElementById("logoutButton").addEventListener("click", function() {
-    firebase.auth().signOut()
-      .then(function() {
-        //window.location.href = "login.html";
-      })
-      .catch(function(error) {
-        console.error(error);
-      });
-  });
-  
+    document.getElementById("logoutButton").addEventListener("click", function () {
+      firebase.auth().signOut()
+        .then(function () {
+          //window.location.href = "login.html";
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    });
+
   </script>
 </body>
 

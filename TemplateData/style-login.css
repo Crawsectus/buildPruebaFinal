@@ -113,6 +113,87 @@ button {
     box-shadow: 0 0 10px rgba(0, 0, 0, 1);
 }
 
+
+.contraseña-olv {
+    text-decoration: underline;
+    cursor: pointer;
+    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+}
+
+/* seccion recuperar contraseña */
+.contraseña {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 97vh;
+}
+
+.contraseña-contenido {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    height: 320px;
+    color: rgb(223, 229, 235);
+    position: relative;
+}
+
+#volverLogin {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    color: #ad181e;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 1);
+    cursor: pointer;
+}
+
+.contraseña-contenido h1,
+p {
+    text-align: center;
+}
+
+
+
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        transform: translateX(-5px);
+    }
+
+    20%,
+    40%,
+    60%,
+    80% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.error {
+    animation: shake 0.4s ease-in-out;
+    border: 1px solid red;
+}
+
+
 @media screen and (max-width: 800px) {
     .titulo {
         position: relative;

@@ -1,3 +1,9 @@
+//variables gloables
+
+var container = document.getElementById("container");
+var recContraseña = document.getElementById("recuperarContraseña");
+
+
 const firebaseApp = firebase.initializeApp({
     apiKey: "AIzaSyB2S--M6FdhqkgB9lMosxKb40CUdPio5Zc",
     authDomain: "juegovertigo.firebaseapp.com",
@@ -27,15 +33,12 @@ document.getElementById("loginButton").addEventListener("click", function () {
                 window.location.href = "index.html";
             } else {
                 // Correo electrónico no verificado, muestra el mensaje de error
-                alert("Por favor verifica tu correo");
+                showError("No se ha verificado el correo electrónico");
+                inputError("email");
             }
         })
         .catch(function (error) {
-            // Manejo de errores de inicio de sesión
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.log(errorCode, errorMessage);
-            alert("Error al iniciar sesión");
+            handleFirebaseError(error);
         });
 });
 // Obtener referencias a los campos de entrada
@@ -54,7 +57,10 @@ registerButton.addEventListener("click", function () {
 
 
     if (password !== passwordConfirm) {
-        alert("Las contraseñas no coinciden");
+        inputError("passwordSignUp");
+        inputError("passwordConfirmSignUp");
+        passwordConfirmFieldSignUp.value = "";
+        showError("Las contraseñas no coinciden");
         return;
     }
 
@@ -72,12 +78,11 @@ registerButton.addEventListener("click", function () {
         })
         .then(function () {
             // Correo de verificación enviado, muestra el mensaje informativo
-            alert("Correo de verificación enviado!");
+            showSuccess("Se ha enviado un correo de verificación a " + email + ". Por favor, verifique su correo electrónico y luego inicie sesión. Si no encuentra el correo revise la carpeta de spam.");
         })
         .catch(function (error) {
             // Manejo de errores de registro
-            alert("Error al registrarse");
-            console.error(error);
+            handleFirebaseError(error);
         });
 });
 // Función para el inicio de sesión con Google
@@ -88,21 +93,107 @@ function signInWithGoogle() {
             window.location.href = "index.html";
         })
         .catch(function (error) {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            console.error(errorCode, errorMessage);
+            handleFirebaseError(error);
         });
 }
-//Olvido de contraseña
+// olvido contraseña
 function forgotPassword() {
-    var email = prompt("Por favor, ingresa tu correo electrónico para restablecer la contraseña:");
-    if (email) {
+    container.style.display = "none";
+    recContraseña.style.display = "flex";
+
+    var botonSend = document.getElementById("sendPasswordForgot");
+    var botonVolver = document.getElementById("volverLogin");
+
+    botonVolver.addEventListener("click", function () {
+        container.style.display = "flex";
+        recContraseña.style.display = "none";
+    });
+
+    botonSend.addEventListener("click", function () {
+        var email = document.getElementById("emailPasswordForgot").value;
+
+        if (email == "") {
+            inputError("emailPasswordForgot");
+            showError("Ingrese un correo electrónico");
+            return;
+        }
         firebase.auth().sendPasswordResetEmail(email)
             .then(function () {
-                alert("Se ha enviado un correo electrónico para restablecer la contraseña. Por favor, revisa tu bandeja de entrada.");
+                showSuccess("Correo enviado");
             })
             .catch(function (error) {
-                alert("Ha ocurrido un error al enviar el correo electrónico: " + error.message);
+                handleFirebaseError(error);
             });
+    });
+}
+
+
+function inputError(inputUsuario) {
+    var input = document.getElementById(inputUsuario);
+    input.classList.add("error");
+}
+
+function showError(message) {
+    Swal.fire({
+        icon: 'error',
+        iconColor: '#ad181e',
+        title: 'Error',
+        color: '#dfe5eb',
+        text: message,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ad181e',
+        background: '#1c1c1c'
+    });
+}
+
+function showSuccess(message) {
+    Swal.fire({
+        icon: 'success',
+        title: '¡Muy Bien!',
+        color: '#dfe5eb',
+        text: message,
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#ad181e',
+        background: '#1c1c1c'
+    });
+}
+
+function handleFirebaseError(error) {
+    switch (error.code) {
+        case 'auth/invalid-email':
+            showError('Correo electrónico inválido');
+            inputError("email");
+            break;
+        case 'auth/user-disabled':
+            showError('Usuario deshabilitado');
+            inputError("email");
+            break;
+        case 'auth/user-not-found':
+            showError('Usuario no encontrado');
+            inputError("email");
+            break;
+        case 'auth/wrong-password':
+            showError('Contraseña incorrecta');
+            inputError("password");
+            break;
+        case 'auth/email-already-in-use':
+            showError('Correo electrónico ya registrado');
+            inputError("emailSignUp");
+            break;
+        case 'auth/weak-password':
+            showError('Contraseña débil');
+            inputError("passwordSignUp");
+            inputError("passwordConfirmSignUp");
+            break;
+        case 'auth/operation-not-allowed':
+            showError('Operación no permitida');
+            break;
+        case 'auth/too-many-requests':
+            showError('Demasiadas solicitudes. Intente más tarde');
+        // Otros casos de error de Firebase Authentication...
+        default:
+            showError('Error: ' + error.message);
+            break;
     }
 }
+
