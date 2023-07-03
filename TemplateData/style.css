@@ -6,6 +6,11 @@ body {
     justify-content: center;
     align-items: center;
     /* background-color: #231F20; */
+    background-image: url(https://vertigolab.co/wp-content/uploads/2023/05/bg18.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: 'Oswald', sans-serif;
+    color: rgb(223, 229, 235);
 }
 
 #unity-container {
@@ -101,6 +106,36 @@ body {
 .GiroCelular2 {
     display: none
 }
+
+.user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: 20px;;
+}
+
+button {
+    border-radius: 5px;
+    border: none;
+    padding: 10px;
+    width: 200px;
+    border-bottom: 1px solid black;
+    background: none;
+    outline: none;
+    color: rgb(223, 229, 235);
+    background-color: #ad181e;
+    cursor: pointer;
+    font-size: large;
+}
+
+#welcome{
+    margin-right: 20px;
+    font-size: large;
+    font-weight: bold;
+}
+
+
 
 
 
