@@ -190,6 +190,8 @@ function handleFirebaseError(error) {
             break;
         case 'auth/too-many-requests':
             showError('Demasiadas solicitudes. Intente más tarde');
+        case 'auth/popup-closed-by-user':
+            showError('Operación cancelada.');
         // Otros casos de error de Firebase Authentication...
         default:
             showError('Error: ' + error.message);
