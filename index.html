@@ -240,6 +240,7 @@
     let globalUserName = "";
     const db = firebaseApp.database();
     const auth = firebaseApp.auth();
+    /*
     firebase.auth().onAuthStateChanged(function (user) {
       if (user && user.emailVerified) {
         // Usuario autenticado, mostrar mensaje de bienvenida
@@ -250,7 +251,7 @@
         // Usuario no autenticado, redirigir al inicio de sesión
         window.location.href = "login.html";
       }
-    });
+    });*/
     function obtenerNombre() {
       return globalUserName;
     }
