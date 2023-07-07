@@ -13,7 +13,9 @@
 </head>
 
 <body>
+  <div class="bloqueo"></div>
   <h1 style="text-align: center; font-family: 'DM-sans',sans-serif;">Misión Bomba</h1>
+  <p id="aviso-completa">Activa el modo de Pantalla Completa para una mejor experiencia de juego</p>
   <div id="unity-container" class="unity-desktop">
     <canvas id="unity-canvas"></canvas>
     <div id="unity-loading-bar">
@@ -24,20 +26,12 @@
     </div>
     <div id="unity-warning"> </div>
   </div>
-  <div class="user">
+  <!-- <div class="user">
     <div id="welcome"></div>
     <button id="logoutButton">Cerrar Sesión</button>
-  </div>
+  </div> -->
 
-  <div class="celPantallaCompleta" id="fullscreen"></div>
-
-  <div class="GiroCelular">
-    <p>Gira tu celular para poder jugar</p>
-    <p>Asegurate de activar la rotación automática en tu dispositivo!</p>
-    <img src="https://www.greenluxepapers.com/img/giphy_devide_left.gif" alt="Gira tu celular">
-
-  </div>
-  <div class="resolucion" id="resolucion" style="position: absolute;"></div>
+<div class="celPantallaCompleta" id="fullscreen"></div>  <!--  Por alguna razon si se borra esto el juego ya no sirve -->
 
 
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
@@ -70,13 +64,6 @@
       div.innerHTML = msg;
       warningBanner.appendChild(div);
       if (type == 'error') div.style = 'background: red; padding: 10px;';
-      else {
-        if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
-        setTimeout(function () {
-          warningBanner.removeChild(div);
-          updateBannerVisibility();
-        }, 5000);
-      }
       updateBannerVisibility();
     }
 
@@ -256,15 +243,15 @@
       return globalUserName;
     }
     //Función para cerrar sesión
-    document.getElementById("logoutButton").addEventListener("click", function () {
-      firebase.auth().signOut()
-        .then(function () {
-          //window.location.href = "login.html";
-        })
-        .catch(function (error) {
-          console.error(error);
-        });
-    });
+    // document.getElementById("logoutButton").addEventListener("click", function () {
+    //   firebase.auth().signOut()
+    //     .then(function () {
+    //       //window.location.href = "login.html";
+    //     })
+    //     .catch(function (error) {
+    //       console.error(error);
+    //     });
+    // });
 
   </script>
 </body>
