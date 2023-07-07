@@ -31,7 +31,8 @@
     <button id="logoutButton">Cerrar Sesión</button>
   </div> -->
 
-<div class="celPantallaCompleta" id="fullscreen"></div>  <!--  Por alguna razon si se borra esto el juego ya no sirve -->
+  <div class="celPantallaCompleta" id="fullscreen"></div>
+  <!--  Por alguna razon si se borra esto el juego ya no sirve -->
 
 
   <script src="https://www.gstatic.com/firebasejs/9.14.0/firebase-app-compat.js"></script>
@@ -88,6 +89,17 @@
     // config.matchWebGLToCanvasSize = false;
 
     if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+      document.addEventListener("fullscreenchange", function () {
+        if (document.fullscreenElement) {
+          cambiarOrientacionHorizontal();
+        }
+      });
+
+      function cambiarOrientacionHorizontal() {
+        if (screen.orientation && screen.orientation.type !== "landscape-primary") {
+          screen.orientation.lock("landscape-primary");
+        }
+      }
 
       // codigo para mantener la pantalla siempre encendida:
 
