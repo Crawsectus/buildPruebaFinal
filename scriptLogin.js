@@ -19,6 +19,20 @@ const auth = firebaseApp.auth();
 var emailField = document.getElementById("email");
 var passwordField = document.getElementById("password");
 
+
+// para entrar solo al registro
+const urlParams = new URLSearchParams(window.location.search);
+const mostrarRegistro = urlParams.get('registro');
+
+if (mostrarRegistro === 'true') {
+    const loginForm = document.querySelector('.login');
+    if (loginForm) {
+        loginForm.style.display = 'none';
+    }
+}
+
+
+
 // Agrega un event listener al botón de inicio de sesión
 document.getElementById("loginButton").addEventListener("click", function () {
     var email = emailField.value;
@@ -48,12 +62,43 @@ const passwordConfirmFieldSignUp = document.getElementById("passwordConfirmSignU
 const displayNameFieldSignUp = document.getElementById("displayNameSignUp");
 const registerButton = document.getElementById("registerButton");
 const forgotPasswordBtn = document.getElementById("passwordForgot");
+const checkTerminos = document.getElementById("terminos");
 forgotPasswordBtn.addEventListener("click", function () { forgotPassword(); });
 registerButton.addEventListener("click", function () {
     const email = emailFieldSignUp.value;
     const password = passwordFieldSignUp.value;
     const passwordConfirm = passwordConfirmFieldSignUp.value;
     const displayName = displayNameFieldSignUp.value;
+
+    const inputs = [emailFieldSignUp, passwordFieldSignUp, passwordConfirmFieldSignUp, displayNameFieldSignUp];
+    for (var i = 0; i < inputs.length; i++) {
+        // revisar todos los campos de entrada y si estan vacios ponerlos en rojo
+        if (inputs[i].value === "") {
+            inputError(inputs[i].id);
+        }
+    }
+
+
+    // Validar los campos de entrada
+    if (displayName === "") {
+        showError("Ingrese un nombre de usuario");
+        return;
+    }
+
+    if (email === "") {
+        showError("Ingrese un correo electrónico");
+        return;
+    }
+
+    if (password === "") {
+        showError("Ingrese una contraseña");
+        return;
+    }
+
+    if (passwordConfirm === "") {
+        showError("Confirme la contraseña");
+        return;
+    }
 
 
     if (password !== passwordConfirm) {
@@ -62,6 +107,12 @@ registerButton.addEventListener("click", function () {
         passwordConfirmFieldSignUp.value = "";
         showError("Las contraseñas no coinciden");
         return;
+    }
+
+    if (!checkTerminos.checked) {
+        showError("Debe aceptar los términos y condiciones");
+        return;
+
     }
 
     // Crear un usuario con correo electrónico y contraseña
@@ -131,6 +182,10 @@ function forgotPassword() {
 function inputError(inputUsuario) {
     var input = document.getElementById(inputUsuario);
     input.classList.add("error");
+    // depsues de cinco segundos remueve la clase error
+    setTimeout(function () {
+        input.classList.remove("error");
+    }, 5000);
 }
 
 function showError(message) {
